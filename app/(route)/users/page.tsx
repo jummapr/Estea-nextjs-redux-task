@@ -13,12 +13,10 @@ import {
 import { deleteUser, selectUser } from "@/redux/features/userSlice";
 import { Trash2 } from "lucide-react";
 import Link from "next/link";
-import { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-interface pageProps {}
 
-const page: FC<pageProps> = ({}) => {
+const Users = ({}) => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch()
 
@@ -27,22 +25,23 @@ const page: FC<pageProps> = ({}) => {
       dispatch(deleteUser(id))
   }
   return (
-    <div className="w-full flex  items-center justify-center">
-      <Table className="w-[80rem] ml-12">
-        <TableCaption>A list of All users.</TableCaption>
+    <div className="w-full flex items-center justify-center">
+      <div className="  w-[80rem] mt-10">
+      <Table className="">
+        <TableCaption>List of All users.</TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead className="">firstName</TableHead>
-            <TableHead>lastName</TableHead>
-            <TableHead>email</TableHead>
-            <TableHead>phone</TableHead>
-            <TableHead>address</TableHead>
-            <TableHead>country</TableHead>
+            <TableHead className="">FirstName</TableHead>
+            <TableHead>LastName</TableHead>
+            <TableHead>Email</TableHead>
+            <TableHead>Phone</TableHead>
+            <TableHead>Address</TableHead>
+            <TableHead>Country</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {user.map((item: any) => (
-            <TableRow>
+            <TableRow key={item.id}>
               <>
                 <TableCell className="font-medium">{item.firstName}</TableCell>
                 <TableCell>{item.lastName}</TableCell>
@@ -50,16 +49,18 @@ const page: FC<pageProps> = ({}) => {
                 <TableCell>{item.phone}</TableCell>
                 <TableCell>{item.address}</TableCell>
                 <TableCell>{item.country}</TableCell>
-                <TableCell>
-                  <Button variant={"destructive"} size={"icon"} onClick={() => onDelete(item.id)}>
-                      <Trash2 />
-                  </Button>
-                </TableCell>
+                
                 <TableCell>
                   <Link href={`/users/edit/${item.id}`}>
                   <Button variant={"secondary"} size={"default"} >
                       Update
-                  </Button></Link>
+                  </Button>
+                  </Link>
+                </TableCell>
+                <TableCell>
+                  <Button variant={"destructive"} size={"icon"} onClick={() => onDelete(item.id)}>
+                      <Trash2 />
+                  </Button>
                 </TableCell>
               </>
             </TableRow>
@@ -67,7 +68,8 @@ const page: FC<pageProps> = ({}) => {
         </TableBody>
       </Table>
     </div>
+    </div>
   );
 };
 
-export default page;
+export default Users;

@@ -1,4 +1,4 @@
-import { createSlice, nanoid } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState:any = [
  
@@ -12,7 +12,8 @@ const userSlice = createSlice({
       state.push(action.payload);
     },
     deleteUser: (state, action) => {
-      const userIdToDelete = action.payload; // You can pass the user ID to delete as the action payload
+      // Deletes a user from the state based on the user ID.
+      const userIdToDelete = action.payload; 
 
       // Use the filter method to remove the user with the specified ID
       state = state.filter((user:any) => user.id !== userIdToDelete);
